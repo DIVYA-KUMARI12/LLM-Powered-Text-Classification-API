@@ -1,5 +1,3 @@
-# app/routes/metrics.py
-
 classification_metrics = {
     "total_requests": 0,
     "class_distribution": {
