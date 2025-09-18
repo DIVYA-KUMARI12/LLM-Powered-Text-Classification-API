@@ -62,8 +62,8 @@ cd AI-Engineer-Assignment-Tagbox
 
 API will be available at: http://127.0.0.1:8000
 
-📌 API Endpoints:
-POST /classify
+#📌**API Endpoints:**
+**POST /classify**
 
 Request Example:
 {
@@ -78,7 +78,7 @@ Response:
   "latency_ms": 7.2
 }
 
-POST /feedback
+**POST /feedback**
 
 Request Example:
 {
@@ -97,7 +97,7 @@ Response:
   }
 }
 
-GET /metrics
+**GET /metrics**
 
 Response Example:
 {
@@ -115,14 +115,14 @@ Response Example:
   }
 }
 
-GET /healthz
+**GET /healthz**
 
 Response Example:
 {
   "status": "ok"
 }
 
-📝 Prompt Design
+##📝 **Prompt Design**
 
 Baseline Prompt (Zero-shot):
 Classify the following text: Sports, Politics, Finance, Technology.
@@ -139,7 +139,7 @@ You are an expert text classification system. Classify the text into Sports, Pol
 Now classify: {input}
 
 
-📊 Evaluation
+##📊 **Evaluation**
 
 Evaluation executed using eval/run.py on a small sample dataset.
 
@@ -150,7 +150,7 @@ Toxic	  1.0	    0.43	 0.60
 Spam	  1.0	    0.14	 0.25
 Safe	  0.38	  1.0    0.55
 
-Overall Accuracy: 0.50
+**Overall Accuracy: 0.50**
 
 Latency:
 
@@ -158,10 +158,10 @@ Average: 8.31 ms
 
 95th Percentile: 11.42 ms
 
-Observations:
+**Observations:**
 High precision for Toxic/Spam, but low recall; Safe class has high recall—expected behavior for a baseline model.
 
-✅ Completed Work
+**Completed Work**
 
 • Ran python eval/run.py to evaluate the classification API
 
@@ -171,13 +171,13 @@ High precision for Toxic/Spam, but low recall; Safe class has high recall—expe
 
 🔍 Design Trade-offs & Limitations
 
-Trade-offs:
+**Trade-offs:**
 
 • Few-shot prompts increase accuracy but add latency
 
 • Feedback stored in memory (demo purposes)
 
-Limitations:
+** Limitations:**
 
 • Uses mock classification (replace with real LLM for production)
 
@@ -186,7 +186,7 @@ Limitations:
 • Dataset limited to a small JSONL file
 
 👩‍💻 Author
-Divya Kumari
+**Divya Kumari**
 
 • LinkedIn: https://www.linkedin.com/in/divya-kumari-7867461b5/
 
