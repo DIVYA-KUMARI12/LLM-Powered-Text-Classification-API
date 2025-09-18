@@ -60,7 +60,9 @@ cd AI-Engineer-Assignment-Tagbox
 5. Run the FastAPI server:
    uvicorn app.main:app --reload
 
-API will be available at: http://127.0.0.1:8000
+Open the browser and check: http://127.0.0.1:8000/docs
+
+This is FastAPI’s Swagger UI where we can test all endpoints.
 
 ---
 
