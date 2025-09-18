@@ -162,6 +162,34 @@ Metrics reset on server restart
 Dataset limited to small JSONL file
 
 ---
+⏳ Pending Work (to finish)
+
+1. Run Evaluation
+
+Execute:
+
+python eval/run.py
+
+Collect results (Accuracy, Precision, Recall, F1) for baseline vs improved prompt
+
+Replace placeholders in README’s Evaluation section with the actual numbers
+
+
+
+2. Update README with Metrics
+
+Add the evaluation results you get from step 1 under 📊 Evaluation
+
+Example format:
+
+Metric	Baseline	Improved
+
+Accuracy	0.72	0.85
+Precision	0.70	0.84
+Recall	0.73	0.86
+F1 Score	0.71	0.85
+
+---
 
 👩‍💻 Author
 
