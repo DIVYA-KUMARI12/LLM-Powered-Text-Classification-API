@@ -13,6 +13,7 @@ This project implements a text classification service powered by Large Language 
 
 ---
 
+
 ## 📂 Project Structure
 
 AI-Engineer-Assignment-Tagbox/
@@ -36,62 +37,57 @@ AI-Engineer-Assignment-Tagbox/
 
 ---
 
+
 ## ⚙️ Installation & Setup
 
 1. Clone the repo:
-
 git clone https://github.com/DIVYA-KUMARI12/AI-Engineer-Assignment-Tagbox.git
 cd AI-Engineer-Assignment-Tagbox
-Create a virtual environment :
 
+2. Create a virtual environment:
+   python -m venv venv
 
-python -m venv venv
-Activate the environment:
+3. Activate the environment:
+   # Linux/Mac
+  source venv/bin/activate
+  
+  # Windows
+   env\Scripts\activate
 
-# Linux/Mac
-source venv/bin/activate
+ 4. Install dependencies:
+    pip install -r requirements.txt
 
-# Windows
-venv\Scripts\activate
-Install dependencies:
+5. Run the FastAPI server:
+   uvicorn app.main:app --reload
 
-pip install -r requirements.txt
-Run the FastAPI server:
-
-
-uvicorn app.main:app --reload
 API will be available at: http://127.0.0.1:8000
 
-**📌 API Endpoints**
+📌 API Endpoints:
 POST /classify
 
 Request Example:
-
 {
   "text": "The stock market crashed yesterday"
 }
-Response Example:
 
+Response:
 {
   "class": "Finance",
   "confidence": 0.89,
   "prompt_used": "baseline",
   "latency_ms": 7.2
 }
+
 POST /feedback
 
 Request Example:
-
-
 {
   "text": "The stock market crashed yesterday",
   "predicted": "Finance",
   "correct": "Economy"
 }
 
-Response Example:
-
-
+Response:
 {
   "status": "received",
   "data": {
@@ -100,9 +96,10 @@ Response Example:
     "correct": "Economy"
   }
 }
-GET /metrics
-Response Example:
 
+GET /metrics
+
+Response Example:
 {
   "classification": {
     "total_requests": 3,
@@ -124,15 +121,14 @@ Response Example:
 {
   "status": "ok"
 }
-----
 
-**📝 Prompt Design**
+📝 Prompt Design
+
 Baseline Prompt (Zero-shot):
-
 Classify the following text: Sports, Politics, Finance, Technology.
 Text: {input}
-Improved Prompt (Few-shot with role):
 
+Improved Prompt (Few-shot with role):
 You are an expert text classification system. Classify the text into Sports, Politics, Finance, or Technology. Examples:
 
 "The government passed a new law" → Politics
@@ -141,15 +137,18 @@ You are an expert text classification system. Classify the text into Sports, Pol
 "The team won the championship" → Sports
 
 Now classify: {input}
+
+
 📊 Evaluation
-* Evaluation executed using eval/run.py on a small sample dataset.
+
+Evaluation executed using eval/run.py on a small sample dataset.
 
 Results:
 
 Class	Precision	Recall	F1
-Toxic	1.0	0.43	0.60
-Spam	1.0	0.14	0.25
-Safe	0.38	1.0	0.55
+Toxic	  1.0	    0.43	 0.60
+Spam	  1.0	    0.14	 0.25
+Safe	  0.38	  1.0    0.55
 
 Overall Accuracy: 0.50
 
@@ -160,35 +159,37 @@ Average: 8.31 ms
 95th Percentile: 11.42 ms
 
 Observations:
-High precision for Toxic/Spam, but low recall; the safe class has high recall—expected behavior for a baseline model.
+High precision for Toxic/Spam, but low recall; Safe class has high recall—expected behavior for a baseline model.
 
 ✅ Completed Work
-Ran python eval/run.py to evaluate the classification API
 
-Tested API endpoints (/classify, /feedback, /metrics, /healthz) using tests/test_api.py
+• Ran python eval/run.py to evaluate the classification API
 
-Verified that classification, feedback, and metrics are working as expected
+• Tested API endpoints (/classify, /feedback, /metrics, /healthz) using tests/test_api.py
+
+• Verified that classification, feedback, and metrics are working as expected
 
 🔍 Design Trade-offs & Limitations
+
 Trade-offs:
 
-Few-shot prompts increase accuracy but add latency
+• Few-shot prompts increase accuracy but add latency
 
-Feedback stored in memory (demo purposes)
+• Feedback stored in memory (demo purposes)
 
 Limitations:
 
-Uses mock classification (replace with real LLM for production)
+• Uses mock classification (replace with real LLM for production)
 
-Metrics reset on server restart
+• Metrics reset on server restart
 
-Dataset limited to a small JSONL file
+• Dataset limited to a small JSONL file
 
 👩‍💻 Author
 Divya Kumari
 
-LinkedIn: https://www.linkedin.com/in/divya-kumari-7867461b5/
+• LinkedIn: https://www.linkedin.com/in/divya-kumari-7867461b5/
 
-GitHub: https://github.com/DIVYA-KUMARI12
+• GitHub: https://github.com/DIVYA-KUMARI12
 
 ✨ Built as part of the AI Engineer Assignment (Tagbox)
