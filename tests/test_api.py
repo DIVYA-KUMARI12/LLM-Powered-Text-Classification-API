@@ -1,37 +1,48 @@
 import requests
+import json
+import time
+import numpy as np 
 
 BASE_URL = "http://127.0.0.1:8000"
 
-def test_health():
-    print("Testing /healthz endpoint...")
-    response = requests.get(f"{BASE_URL}/healthz")
-    print("Response:", response.json(), "\n")
+resp = requests.get(f"{BASE_URL}/healthz")
+print("Health check:", resp.json())
 
-def test_classify():
-    print("Testing /classify endpoint...")
-    data = {"text": "I hate this product"}
-    response = requests.post(f"{BASE_URL}/classify/", json=data)
-    print("Request:", data)
-    print("Response:", response.json(), "\n")
+texts = [
+    "I hate this product",
+    "Win money now!",
+    "I love this app"
+]
 
-def test_feedback():
-    print("Testing /feedback endpoint...")
-    data = {
-        "text": "I hate this product",
-        "predicted": "toxic",
-        "correct": "safe"
-    }
-    response = requests.post(f"{BASE_URL}/feedback/", json=data)
-    print("Request:", data)
-    print("Response:", response.json(), "\n")
+latencies = []
 
-def test_metrics():
-    print("Testing /metrics endpoint...")
-    response = requests.get(f"{BASE_URL}/metrics/")
-    print("Response:", response.json(), "\n")
+for text in texts:
+    start_time = time.time()
+    resp = requests.post(f"{BASE_URL}/classify", json={"text": text})
+    end_time = time.time()
+    latency_ms = (end_time - start_time) * 1000
+    latencies.append(latency_ms)
 
-if __name__ == "__main__":
-    test_health()
-    test_classify()
-    test_feedback()
-    test_metrics()
+    result = resp.json()
+    result["latency_ms"] = round(latency_ms, 2)  # overwrite with measured latency
+    print("Classify:", result)
+
+feedbacks = [
+    {"text": "I hate this product", "predicted": "toxic", "correct": "safe"},
+    {"text": "Win money now!", "predicted": "spam", "correct": "spam"},
+    {"text": "I love this app", "predicted": "safe", "correct": "safe"}
+]
+
+for fb in feedbacks:
+    resp = requests.post(f"{BASE_URL}/feedback", json=fb)
+    print("Feedback:", resp.json())
+
+resp = requests.get(f"{BASE_URL}/metrics")
+metrics = resp.json()
+
+avg_latency = round(np.mean(latencies), 2)
+p95_latency = round(np.percentile(latencies, 95), 2)
+metrics["classification"]["average_latency_ms_measured"] = avg_latency
+metrics["classification"]["p95_latency_ms"] = p95_latency
+
+print("Metrics:", json.dumps(metrics, indent=2))
