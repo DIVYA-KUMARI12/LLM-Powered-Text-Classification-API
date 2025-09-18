@@ -177,7 +177,7 @@ High precision for Toxic/Spam, but low recall; Safe class has high recall—expe
 
 • Feedback stored in memory (demo purposes)
 
-** Limitations:**
+**Limitations:**
 
 • Uses mock classification (replace with real LLM for production)
 
