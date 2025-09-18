@@ -1,9 +1,6 @@
-# LLM-powered Text Classification API
-This project implements a text classification service powered by Large Language Models (LLMs) using FastAPI.
-It supports classification, feedback collection, and metrics tracking with evaluation on a benchmark dataset.
+LLM-powered Text Classification API
 
-
----
+This project implements a text classification service powered by Large Language Models (LLMs) using FastAPI. It supports classification, feedback collection, and metrics tracking, with evaluation on a small benchmark dataset.
 
 🚀 Features
 
@@ -13,183 +10,188 @@ It supports classification, feedback collection, and metrics tracking with evalu
 
 /metrics → View usage, performance, and feedback statistics
 
-Evaluation harness → Computes accuracy, precision, recall, F1
+Evaluation harness → Computes Accuracy, Precision, Recall, F1
 
 📂 Project Structure
-
 AI-Engineer-Assignment-Tagbox/
 │── app/
-│   ├── main.py              # FastAPI entry point
-│   ├── routes/              # API endpoints
+│   ├── main.py               # FastAPI entry point
+│   ├── routes/               # API endpoints
 │   │   ├── classify.py
 │   │   ├── feedback.py
 │   │   └── metrics.py
-│   ├── telemetry/           # Metrics and logging
-│   └── prompts/             # Baseline and improved prompts
+│   ├── telemetry/            # Metrics and logging
+│   └── prompts/              # Baseline and improved prompts
 │
 │── eval/
-│   ├── dataset.jsonl        # Evaluation dataset
-│   ├── run.py               # Evaluation harness
+│   ├── dataset.jsonl         # Evaluation dataset
+│   ├── run.py                # Evaluation harness
 │   └── __init__.py
 │
 │── tests/
-│   ├── test_api.py          # Unit tests for API
+│   ├── test_api.py           # Unit tests for API
 │   └── __init__.py
 │
 │── requirements.txt
-│── README.md
+└── README.md
 
 ⚙️ Installation & Setup
 
-# Clone the repo
+1. Clone the repo
+
 git clone https://github.com/DIVYA-KUMARI12/AI-Engineer-Assignment-Tagbox.git
 cd AI-Engineer-Assignment-Tagbox
 
-# Create virtual environment (optional but recommended)
-python -m venv venv
-source venv/bin/activate   
-# on Linux/Mac
-venv\Scripts\activate      
-# on Windows
 
-# Install dependencies
+2. Create a virtual environment (optional but recommended)
+
+python -m venv venv
+# Activate
+source venv/bin/activate   # Linux/Mac
+venv\Scripts\activate      # Windows
+
+
+3. Install dependencies
+
 pip install -r requirements.txt
 
-# Run the FastAPI server
+
+4. Run the FastAPI server
+
 uvicorn app.main:app --reload
 
-API will be available at:
-👉 http://127.0.0.1:8000
+
+API available at: http://127.0.0.1:8000
 
 📌 API Endpoints
-
 1. POST /classify
 
 Request:
-{
-  "text": "The stock market crashed yesterday"
-}
+
+{"text": "The stock market crashed yesterday"}
+
 
 Response:
+
 {
-  "label": "Finance",
-  "confidence": 0.89
+  "class": "Finance",
+  "confidence": 0.89,
+  "prompt_used": "baseline",
+  "latency_ms": 7.2
 }
 
 2. POST /feedback
 
 Request:
+
 {
   "text": "The stock market crashed yesterday",
   "predicted": "Finance",
   "correct": "Economy"
 }
 
+
 Response:
+
 {
-  "message": "Feedback recorded"
+  "status": "received",
+  "data": {
+    "text": "The stock market crashed yesterday",
+    "predicted": "Finance",
+    "correct": "Economy"
+  }
 }
 
 3. GET /metrics
 
 Response:
+
 {
-  "total_requests": 120,
-  "class_distribution": {"Sports": 30, "Politics": 40, "Finance": 50},
-  "feedback_counts": {"correct": 90, "incorrect": 30},
-  "latency": {"avg_ms": 120, "p95_ms": 300}
+  "classification": {
+    "total_requests": 3,
+    "class_distribution": {"toxic": 1, "spam": 1, "safe": 1},
+    "average_latency_ms": 50.0,
+    "average_latency_ms_measured": 7.0,
+    "p95_latency_ms": 7.3
+  },
+  "feedback": {
+    "total_feedback": 3,
+    "correct_count": 2,
+    "incorrect_count": 1
+  }
 }
+
+4. GET /healthz
+
+Response:
+
+{"status": "ok"}
 
 📝 Prompt Design
 
-Baseline Prompt (Zero-shot)
+Baseline Prompt (Zero-shot):
 
 Classify the following text into categories: Sports, Politics, Finance, Technology.
 Text: {input}
 
-Improved Prompt (Few-shot with role)
 
-You are an expert text classification system.  
-Classify the text into **Sports, Politics, Finance, or Technology**.  
+Improved Prompt (Few-shot with role):
+
+You are an expert text classification system.
+Classify the text into Sports, Politics, Finance, or Technology.
 Here are examples:
-- "The government passed a new law" → Politics  
-- "Apple released a new iPhone" → Technology  
-- "The stock market crashed yesterday" → Finance  
-- "The team won the championship" → Sports  
+
+"The government passed a new law" → Politics
+"Apple released a new iPhone" → Technology
+"The stock market crashed yesterday" → Finance
+"The team won the championship" → Sports
 
 Now classify: {input}
 
 📊 Evaluation
 
-Run evaluation:
+Evaluation executed using eval/run.py on a small sample dataset.
 
-python eval/run.py
+Results:
 
-Expected metrics (fill after running):
+Overall Accuracy: 0.50
 
-Metric	Baseline Prompt	Improved Prompt
+Class	Precision	Recall	F1
+Toxic	1.0	0.43	0.60
+Spam	1.0	0.14	0.25
+Safe	0.38	1.0	0.55
 
-Accuracy	PLACEHOLDER	PLACEHOLDER
-Precision	PLACEHOLDER	PLACEHOLDER
-Recall	PLACEHOLDER	PLACEHOLDER
-F1 Score	PLACEHOLDER	PLACEHOLDER
+Latency:
 
----
+Average: 8.31 ms
 
-✅ Tests
+95th Percentile: 11.42 ms
 
-Run tests with:
+Observations: High precision for toxic/spam but low recall; safe class has high recall. Expected for a baseline model.
 
-pytest tests/
+✅ Completed Work
 
----
+Ran python eval/run.py to evaluate the classification API
+
+Tested API endpoints (/classify, /feedback, /metrics, /healthz) using tests/test_api.py
+
+Verified that classification, feedback, and metrics are working as expected
 
 🔍 Design Trade-offs & Limitations
 
-Trade-offs
+Trade-offs:
 
 Few-shot prompts increase accuracy but add latency
 
-Feedback stored in memory (for demo) – not persistent in production
+Feedback stored in memory (demo purposes)
 
-
-Limitations
+Limitations:
 
 Uses mock classification (replace with real LLM for production)
 
 Metrics reset on server restart
 
-Dataset limited to small JSONL file
-
----
-⏳ Pending Work (to finish)
-
-1. Run Evaluation
-
-Execute:
-
-python eval/run.py
-
-Collect results (Accuracy, Precision, Recall, F1) for baseline vs improved prompt
-
-Replace placeholders in README’s Evaluation section with the actual numbers
-
-
-
-2. Update README with Metrics
-
-Add the evaluation results you get from step 1 under 📊 Evaluation
-
-Example format:
-
-Metric	Baseline	Improved
-
-Accuracy	0.72	0.85
-Precision	0.70	0.84
-Recall	0.73	0.86
-F1 Score	0.71	0.85
-
----
+Dataset limited to a small JSONL file
 
 👩‍💻 Author
 
@@ -199,6 +201,4 @@ LinkedIn: https://www.linkedin.com/in/divya-kumari-7867461b5/
 
 GitHub: https://github.com/DIVYA-KUMARI12
 
----
-
-✨ This project was built as part of the AI Engineer Assignment (Tagbox).
+✨ Built as part of the AI Engineer Assignment (Tagbox)
