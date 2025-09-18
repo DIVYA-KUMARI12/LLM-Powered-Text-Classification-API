@@ -34,27 +34,20 @@ AI-Engineer-Assignment-Tagbox/
 ├── requirements.txt
 └── README.md
 
-yaml
-Copy code
-
 ---
 
 ## ⚙️ Installation & Setup
 
 1. Clone the repo:
 
-bash
 git clone https://github.com/DIVYA-KUMARI12/AI-Engineer-Assignment-Tagbox.git
 cd AI-Engineer-Assignment-Tagbox
 Create a virtual environment (optional but recommended):
 
-bash
-Copy code
+
 python -m venv venv
 Activate the environment:
 
-bash
-Copy code
 # Linux/Mac
 source venv/bin/activate
 
@@ -62,30 +55,23 @@ source venv/bin/activate
 venv\Scripts\activate
 Install dependencies:
 
-bash
-Copy code
 pip install -r requirements.txt
 Run the FastAPI server:
 
-bash
-Copy code
+
 uvicorn app.main:app --reload
 API will be available at: http://127.0.0.1:8000
 
-📌 API Endpoints
+**📌 API Endpoints**
 POST /classify
 
 Request Example:
 
-json
-Copy code
 {
   "text": "The stock market crashed yesterday"
 }
 Response Example:
 
-json
-Copy code
 {
   "class": "Finance",
   "confidence": 0.89,
@@ -96,17 +82,16 @@ POST /feedback
 
 Request Example:
 
-json
-Copy code
+
 {
   "text": "The stock market crashed yesterday",
   "predicted": "Finance",
   "correct": "Economy"
 }
+
 Response Example:
 
-json
-Copy code
+
 {
   "status": "received",
   "data": {
@@ -116,11 +101,8 @@ Copy code
   }
 }
 GET /metrics
-
 Response Example:
 
-json
-Copy code
 {
   "classification": {
     "total_requests": 3,
@@ -135,26 +117,22 @@ Copy code
     "incorrect_count": 1
   }
 }
+
 GET /healthz
 
 Response Example:
-
-json
-Copy code
 {
   "status": "ok"
 }
-📝 Prompt Design
+----
+
+**📝 Prompt Design**
 Baseline Prompt (Zero-shot):
 
-pgsql
-Copy code
-Classify the following text into categories: Sports, Politics, Finance, Technology.
+Classify the following text: Sports, Politics, Finance, Technology.
 Text: {input}
 Improved Prompt (Few-shot with role):
 
-arduino
-Copy code
 You are an expert text classification system. Classify the text into Sports, Politics, Finance, or Technology. Examples:
 
 "The government passed a new law" → Politics
@@ -164,7 +142,7 @@ You are an expert text classification system. Classify the text into Sports, Pol
 
 Now classify: {input}
 📊 Evaluation
-Evaluation executed using eval/run.py on a small sample dataset.
+* Evaluation executed using eval/run.py on a small sample dataset.
 
 Results:
 
