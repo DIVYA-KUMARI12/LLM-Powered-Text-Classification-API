@@ -167,9 +167,9 @@ Dataset limited to small JSONL file
 
 Divya Kumari
 
-LinkedIn
+LinkedIn: https://www.linkedin.com/in/divya-kumari-7867461b5/
 
-GitHub
+GitHub: https://github.com/DIVYA-KUMARI12
 
 ---
 
