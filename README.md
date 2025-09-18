@@ -42,7 +42,7 @@ AI-Engineer-Assignment-Tagbox/
 
 git clone https://github.com/DIVYA-KUMARI12/AI-Engineer-Assignment-Tagbox.git
 cd AI-Engineer-Assignment-Tagbox
-Create a virtual environment (optional but recommended):
+Create a virtual environment :
 
 
 python -m venv venv
