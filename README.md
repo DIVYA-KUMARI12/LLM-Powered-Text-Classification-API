@@ -209,8 +209,8 @@ Dataset limited to a small JSONL file
 👩‍💻 Author
 Divya Kumari
 
-LinkedIn
+LinkedIn: https://www.linkedin.com/in/divya-kumari-7867461b5/
 
-GitHub
+GitHub: https://github.com/DIVYA-KUMARI12
 
 ✨ Built as part of the AI Engineer Assignment (Tagbox)
