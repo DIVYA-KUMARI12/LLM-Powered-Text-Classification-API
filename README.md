@@ -62,6 +62,8 @@ cd AI-Engineer-Assignment-Tagbox
 
 API will be available at: http://127.0.0.1:8000
 
+---
+
 ## 📌 API Endpoints:
 **POST /classify**
 
@@ -122,6 +124,8 @@ Response Example:
   "status": "ok"
 }
 
+---
+
 ## 📝 Prompt Design
 
 Baseline Prompt (Zero-shot):
@@ -138,6 +142,7 @@ You are an expert text classification system. Classify the text into Sports, Pol
 
 Now classify: {input}
 
+---
 
 ## 📊 Evaluation
 
@@ -158,8 +163,12 @@ Average: 8.31 ms
 
 95th Percentile: 11.42 ms
 
+---
+
 **Observations:**
 High precision for Toxic/Spam, but low recall; Safe class has high recall—expected behavior for a baseline model.
+
+---
 
 **Completed Work**
 
@@ -168,6 +177,8 @@ High precision for Toxic/Spam, but low recall; Safe class has high recall—expe
 • Tested API endpoints (/classify, /feedback, /metrics, /healthz) using tests/test_api.py
 
 • Verified that classification, feedback, and metrics are working as expected
+
+---
 
 ## 🔍 Design Trade-offs & Limitations
 
@@ -184,6 +195,8 @@ High precision for Toxic/Spam, but low recall; Safe class has high recall—expe
 • Metrics reset on server restart
 
 • Dataset limited to a small JSONL file
+
+---
 
 👩‍💻 Author
 **Divya Kumari**
