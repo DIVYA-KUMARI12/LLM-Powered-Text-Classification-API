@@ -1,98 +1,112 @@
-LLM-powered Text Classification API
+# LLM-powered Text Classification API
 
 This project implements a text classification service powered by Large Language Models (LLMs) using FastAPI. It supports classification, feedback collection, and metrics tracking, with evaluation on a small benchmark dataset.
 
-🚀 Features
+---
 
-/classify → Classify text into predefined categories
+## 🚀 Features
 
-/feedback → Collect human feedback on predictions
+- `/classify` → Classify text into predefined categories  
+- `/feedback` → Collect human feedback on predictions  
+- `/metrics` → View usage, performance, and feedback statistics  
+- Evaluation harness → Computes Accuracy, Precision, Recall, F1  
 
-/metrics → View usage, performance, and feedback statistics
+---
 
-Evaluation harness → Computes Accuracy, Precision, Recall, F1
+## 📂 Project Structure
 
-📂 Project Structure
 AI-Engineer-Assignment-Tagbox/
-│── app/
-│   ├── main.py               # FastAPI entry point
-│   ├── routes/               # API endpoints
-│   │   ├── classify.py
-│   │   ├── feedback.py
-│   │   └── metrics.py
-│   ├── telemetry/            # Metrics and logging
-│   └── prompts/              # Baseline and improved prompts
-│
-│── eval/
-│   ├── dataset.jsonl         # Evaluation dataset
-│   ├── run.py                # Evaluation harness
-│   └── __init__.py
-│
-│── tests/
-│   ├── test_api.py           # Unit tests for API
-│   └── __init__.py
-│
-│── requirements.txt
+├── app/
+│ ├── main.py # FastAPI entry point
+│ ├── routes/ # API endpoints
+│ │ ├── classify.py
+│ │ ├── feedback.py
+│ │ └── metrics.py
+│ ├── telemetry/ # Metrics and logging
+│ └── prompts/ # Baseline and improved prompts
+├── eval/
+│ ├── dataset.jsonl # Evaluation dataset
+│ ├── run.py # Evaluation harness
+│ └── init.py
+├── tests/
+│ ├── test_api.py # Unit tests for API
+│ └── init.py
+├── requirements.txt
 └── README.md
 
-⚙️ Installation & Setup
+yaml
+Copy code
 
-1. Clone the repo
+---
 
+## ⚙️ Installation & Setup
+
+1. Clone the repo:
+
+bash
 git clone https://github.com/DIVYA-KUMARI12/AI-Engineer-Assignment-Tagbox.git
 cd AI-Engineer-Assignment-Tagbox
+Create a virtual environment (optional but recommended):
 
-
-2. Create a virtual environment (optional but recommended)
-
+bash
+Copy code
 python -m venv venv
-# Activate
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
+Activate the environment:
 
+bash
+Copy code
+# Linux/Mac
+source venv/bin/activate
 
-3. Install dependencies
+# Windows
+venv\Scripts\activate
+Install dependencies:
 
+bash
+Copy code
 pip install -r requirements.txt
+Run the FastAPI server:
 
-
-4. Run the FastAPI server
-
+bash
+Copy code
 uvicorn app.main:app --reload
-
-
-API available at: http://127.0.0.1:8000
+API will be available at: http://127.0.0.1:8000
 
 📌 API Endpoints
-1. POST /classify
+POST /classify
 
-Request:
+Request Example:
 
-{"text": "The stock market crashed yesterday"}
+json
+Copy code
+{
+  "text": "The stock market crashed yesterday"
+}
+Response Example:
 
-
-Response:
-
+json
+Copy code
 {
   "class": "Finance",
   "confidence": 0.89,
   "prompt_used": "baseline",
   "latency_ms": 7.2
 }
+POST /feedback
 
-2. POST /feedback
+Request Example:
 
-Request:
-
+json
+Copy code
 {
   "text": "The stock market crashed yesterday",
   "predicted": "Finance",
   "correct": "Economy"
 }
+Response Example:
 
-
-Response:
-
+json
+Copy code
 {
   "status": "received",
   "data": {
@@ -101,11 +115,12 @@ Response:
     "correct": "Economy"
   }
 }
+GET /metrics
 
-3. GET /metrics
+Response Example:
 
-Response:
-
+json
+Copy code
 {
   "classification": {
     "total_requests": 3,
@@ -120,46 +135,45 @@ Response:
     "incorrect_count": 1
   }
 }
+GET /healthz
 
-4. GET /healthz
+Response Example:
 
-Response:
-
-{"status": "ok"}
-
+json
+Copy code
+{
+  "status": "ok"
+}
 📝 Prompt Design
-
 Baseline Prompt (Zero-shot):
 
+pgsql
+Copy code
 Classify the following text into categories: Sports, Politics, Finance, Technology.
 Text: {input}
-
-
 Improved Prompt (Few-shot with role):
 
-You are an expert text classification system.
-Classify the text into Sports, Politics, Finance, or Technology.
-Here are examples:
+arduino
+Copy code
+You are an expert text classification system. Classify the text into Sports, Politics, Finance, or Technology. Examples:
 
 "The government passed a new law" → Politics
 "Apple released a new iPhone" → Technology
-"The stock market crashed yesterday" → Finance
+"The stock market crashed yesterday." → Finance
 "The team won the championship" → Sports
 
 Now classify: {input}
-
 📊 Evaluation
-
 Evaluation executed using eval/run.py on a small sample dataset.
 
 Results:
-
-Overall Accuracy: 0.50
 
 Class	Precision	Recall	F1
 Toxic	1.0	0.43	0.60
 Spam	1.0	0.14	0.25
 Safe	0.38	1.0	0.55
+
+Overall Accuracy: 0.50
 
 Latency:
 
@@ -167,10 +181,10 @@ Average: 8.31 ms
 
 95th Percentile: 11.42 ms
 
-Observations: High precision for toxic/spam but low recall; safe class has high recall. Expected for a baseline model.
+Observations:
+High precision for Toxic/Spam, but low recall; the safe class has high recall—expected behavior for a baseline model.
 
 ✅ Completed Work
-
 Ran python eval/run.py to evaluate the classification API
 
 Tested API endpoints (/classify, /feedback, /metrics, /healthz) using tests/test_api.py
@@ -178,7 +192,6 @@ Tested API endpoints (/classify, /feedback, /metrics, /healthz) using tests/test
 Verified that classification, feedback, and metrics are working as expected
 
 🔍 Design Trade-offs & Limitations
-
 Trade-offs:
 
 Few-shot prompts increase accuracy but add latency
@@ -194,11 +207,10 @@ Metrics reset on server restart
 Dataset limited to a small JSONL file
 
 👩‍💻 Author
-
 Divya Kumari
 
-LinkedIn: https://www.linkedin.com/in/divya-kumari-7867461b5/
+LinkedIn
 
-GitHub: https://github.com/DIVYA-KUMARI12
+GitHub
 
 ✨ Built as part of the AI Engineer Assignment (Tagbox)
