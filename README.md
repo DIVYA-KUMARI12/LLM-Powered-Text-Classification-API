@@ -62,7 +62,7 @@ cd AI-Engineer-Assignment-Tagbox
 
 API will be available at: http://127.0.0.1:8000
 
-#📌**API Endpoints:**
+## 📌 API Endpoints:
 **POST /classify**
 
 Request Example:
@@ -122,7 +122,7 @@ Response Example:
   "status": "ok"
 }
 
-##📝 **Prompt Design**
+## 📝 Prompt Design
 
 Baseline Prompt (Zero-shot):
 Classify the following text: Sports, Politics, Finance, Technology.
@@ -139,7 +139,7 @@ You are an expert text classification system. Classify the text into Sports, Pol
 Now classify: {input}
 
 
-##📊 **Evaluation**
+## 📊 Evaluation
 
 Evaluation executed using eval/run.py on a small sample dataset.
 
@@ -169,7 +169,7 @@ High precision for Toxic/Spam, but low recall; Safe class has high recall—expe
 
 • Verified that classification, feedback, and metrics are working as expected
 
-🔍 Design Trade-offs & Limitations
+## 🔍 Design Trade-offs & Limitations
 
 **Trade-offs:**
 
