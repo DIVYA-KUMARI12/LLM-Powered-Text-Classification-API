@@ -64,6 +64,29 @@ Open the browser and check: http://127.0.0.1:8000/docs
 
 This is FastAPI’s Swagger UI where we can test all endpoints.
 
+And easy to use 3. Test the endpoints /classify, /feedback, /metrics, /healthz directly.
+
+Postman
+
+1. Open Postman.
+2. Create a new request:
+
+Method: POST (or GET for metrics/healthz)
+
+URL: http://127.0.0.1:8000/classify/
+
+Headers: Content-Type: application/json
+
+Body: raw JSON
+
+{
+  "text": "The stock market crashed yesterday"
+}
+
+3. Send the request and view the response.
+
+4. Repeat for /feedback and /metrics.
+
 ---
 
 ## 📌 API Endpoints:
