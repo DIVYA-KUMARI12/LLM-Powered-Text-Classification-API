@@ -9,3 +9,7 @@ __pycache__/
 
 # Ignore system files
 .DS_Store
+
+*.log           # Log files
+*.sqlite3       # Local database files, if any
+.env            # Environment variables file
