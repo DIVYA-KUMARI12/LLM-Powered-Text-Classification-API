@@ -1,22 +1,23 @@
 # LLM-powered Text Classification API
 
-This project implements a text classification service powered by Large Language Models (LLMs) using FastAPI. It supports classification, feedback collection, and metrics tracking, with evaluation on a small benchmark dataset.
+This project implements a text classification service powered by large language models (LLMs) using FastAPI. It supports classification, feedback collection, and metrics tracking, with evaluation on a small benchmark dataset.
 
 ---
 
 ## 🚀 Features
 
-- `/classify` → Classify text into predefined categories  
-- `/feedback` → Collect human feedback on predictions  
-- `/metrics` → View usage, performance, and feedback statistics  
-- Evaluation harness → Computes Accuracy, Precision, Recall, F1  
+- /classify → Classify text into predefined categories  
+- /feedback → Collect human feedback on predictions  
+- /metrics → View usage, performance, and feedback statistics  
+- Evaluation harness → Computes Accuracy, Precision, Recall, F1
+- /healthz → Simple health check endpoint.
 
 ---
 
 
 ## 📂 Project Structure
 
-AI-Engineer-Assignment-Tagbox/
+LLM-Powered-Text-Classification-API/
 ├── app/
 │ ├── main.py # FastAPI entry point
 │ ├── routes/ # API endpoints
@@ -34,6 +35,8 @@ AI-Engineer-Assignment-Tagbox/
 │ └── init.py
 ├── requirements.txt
 └── README.md
+└── test_dataset.py
+
 
 ---
 
@@ -41,8 +44,8 @@ AI-Engineer-Assignment-Tagbox/
 ## ⚙️ Installation & Setup
 
 1. Clone the repo:
-git clone https://github.com/DIVYA-KUMARI12/AI-Engineer-Assignment-Tagbox.git
-cd AI-Engineer-Assignment-Tagbox
+git clone https://github.com/DIVYA-KUMARI12/LLM-Powered-Text-Classification-API.git
+cd LLM-Powered-Text-Classification-API
 
 2. Create a virtual environment:
    python -m venv venv
@@ -60,9 +63,9 @@ cd AI-Engineer-Assignment-Tagbox
 5. Run the FastAPI server:
    uvicorn app.main:app --reload
 
-Open the browser and check: http://127.0.0.1:8000/docs
+Open the browser and check: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-This is FastAPI’s Swagger UI where we can test all endpoints.
+This is FastAPI’s Swagger UI, where we can test all endpoints.
 
 And easy to use 3. Test the endpoints /classify, /feedback, /metrics, /healthz directly.
 
@@ -230,4 +233,4 @@ High precision for Toxic/Spam, but low recall; Safe class has high recall—expe
 
 • GitHub: https://github.com/DIVYA-KUMARI12
 
-✨ Built as part of the AI Engineer Assignment (Tagbox)
+✨ Built as a personal project demonstrating skills in LLM-powered text classification and API development.
